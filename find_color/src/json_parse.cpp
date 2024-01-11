@@ -8,8 +8,8 @@ void  jsonReceived(const std_msgs::String& msg);
 
 int main(int argc, char** argv){
    ros::init(argc, argv, "json_parse");
-   ros::NodeHandle n;
-   ros::Subscriber sub = n.subscribe("yeloblueJson", 1, jsonReceived);
+   ros::NodeHandle n("~");
+   ros::Subscriber sub = n.subscribe("/yelowblueJson/boundingbox", 1, jsonReceived);
    ros::spin();
 
    return 0;

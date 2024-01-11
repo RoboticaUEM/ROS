@@ -1,4 +1,6 @@
 <launch>
-	<node pkg="find_color" name="yeloblueJson" type="yeloblueJson" />
-	<node pkg="find_color" name="json_parse" type="json_parse" />
+	<node pkg="find_color" name="yelowblueJson" type="yelowblueJson" >
+      <param name="DrawContours" value="true" />
+      <param name="MinArea" value="9900" />
+   </node>
 </launch>
