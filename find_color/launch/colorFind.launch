@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="find_color" name="yeloblueJson" type="yeloblueJson" />
+	<node pkg="find_color" name="json_parse" type="json_parse" />
+</launch>
