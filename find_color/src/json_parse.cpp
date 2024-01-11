@@ -7,17 +7,33 @@ using json = nlohmann::ordered_json;
 void  jsonReceived(const std_msgs::String& msg);
 
 int main(int argc, char** argv){
-	ros::init(argc, argv, "json_parse");
-	ros::NodeHandle n;
-	ros::Subscriber sub = n.subscribe("yeloblueJson", 1, jsonReceived);
-	ros::spin();
+   ros::init(argc, argv, "json_parse");
+   ros::NodeHandle n;
+   ros::Subscriber sub = n.subscribe("yeloblueJson", 1, jsonReceived);
+   ros::spin();
 
-	return 0;
+   return 0;
 }
 
 void  jsonReceived(const std_msgs::String& msg){
 
-	//std::cout << std::endl << json::parse(msg.data).dump(4) << std::endl;
-	ROS_WARN( "%s", json::parse(msg.data).dump(4).c_str() );
+   json info = json::parse(msg.data);
+	//std::cout << std::endl << info.dump(4) << std::endl;
+	
+   std::cout << "Image Size: " << info["imageSize"]["width"] << "," << info["imageSize"]["height"] << std::endl;
+   std::cout << "rois -> blue:  " << info["rois"]["blue"] << std::endl;
+   std::cout << "rois -> yelow: " << info["rois"]["yelow"] << std::endl;
+	
+	//Dos formas distintas para acceder a un array
+   for (auto it : info["blue"]){
+   	// "it" is of type json::reference and has no key() member
+      std::cout << "blue: " << it << std::endl;
+   }
+   for (auto& el : info["yelow"].items()){
+      std::cout << "yelow: " << el.key() << ".- " << el.value() << std::endl;
+   }
+
+   std::cout << "==========================================================" << std::endl;
+	//ROS_WARN( "%s", info.dump(4).c_str() );
 
 }
